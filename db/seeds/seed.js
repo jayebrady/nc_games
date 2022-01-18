@@ -1,3 +1,4 @@
+const format = require("pg-format");
 const db = require("../connection");
 
 const seed = (data) => {
@@ -16,8 +17,8 @@ const seed = (data) => {
     .then(() => {
       return db.query(`
     CREATE TABLE categories (
-      slug_id TEXT PRIMARY KEY,
-      slug TEXT NOT NULL,
+      slug_id SERIAL PRIMARY KEY,
+      slug TEXT,
       description TEXT
     );
     `);
@@ -40,7 +41,7 @@ const seed = (data) => {
       owner VARCHAR(40) REFERENCES users (username),
       review_img_url TEXT DEFAULT 'https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg',
       review_body TEXT,
-      category TEXT REFERENCES categories (slug_id),
+      category INT REFERENCES categories(slug_id),
       created_at TIMESTAMP,
       votes INT DEFAULT 0
       );
@@ -57,9 +58,18 @@ const seed = (data) => {
       body TEXT
       );
       `);
+    })
+    .then(() => {
+      const formattedCategories = categoryData.map((category) => [
+        category.slug,
+        category.description,
+      ]);
+      const sql = format(
+        `INSERT INTO categories (slug, description) VALUES %L RETURNING *;`,
+        formattedCategories
+      );
+      return db.query(sql);
     });
-
-  // 2. insert data
 };
 
 module.exports = seed;

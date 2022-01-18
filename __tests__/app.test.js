@@ -12,13 +12,12 @@ describe("GET /api/categories", () => {
     return request(app)
       .get("/api/categories")
       .expect(200)
-      .then(({ app }) => {
-        const { categories } = app;
-        expect(categories).toBeInstanceOf(Array);
-        expect(categories).toHaveLength(2);
-        categories.forEach((category) => {
+      .then((res) => {
+        expect(res.body.categories).toHaveLength(4);
+        res.body.categories.forEach((category) => {
           expect(category).toEqual(
             expect.objectContaining({
+              slug_id: expect.any(Number),
               slug: expect.any(String),
               description: expect.any(String),
             })
