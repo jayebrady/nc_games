@@ -49,24 +49,13 @@ describe("GET /api/categories", () => {
     });
   });
 });
-// describe("GET /api/reviews/:review_id", () => {
-//   test("status:400, returns with an error message", () => {
-//     return request(app)
-//       .get(`/api/reviews/invalid_id`)
-//       .expect(400)
-//       .then((res) => {
-//         expect(res.body.msg).toBe("Bad Request.");
-//       });
-//   });
-// });
-// expect.objectContaining({
-//   title: expect.any(String),
-//   review_body: expect.any(String),
-//   designer: expect.any(String),
-//   review_img_url: expect.any(String),
-//   category: expect.any(String),
-//   created_at: expect.any(Number),
-//   owner: expect.any(String),
-//   votes: expect.any(Number),
-//   review_id: expect.any(Number),
-//   //comment_count: expect.any(Number),
+describe("GET /api/reviews/:review_id", () => {
+  test("status:400, returns with an error message", () => {
+    return request(app)
+      .get(`/api/reviews/invalid_id`)
+      .expect(400)
+      .then((res) => {
+        expect(res.body.msg).toBe("Bad Request.");
+      });
+  });
+});
