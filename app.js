@@ -1,14 +1,25 @@
 const express = require("express");
 const {
   getCategories,
-  postCategories,
+  getReviewsById,
 } = require("./controllers/category.controllers");
+const {
+  handle404s,
+  handleCustomErrors,
+  handlePsqlErrors,
+  handleServerErrors,
+} = require("./errors/errors");
 
 const app = express();
+app.use(express.json());
 
 app.get("/api/categories", getCategories);
-// app.post("/api/categories", postCategories);
+app.get("/api/reviews/:review_id", getReviewsById);
 
-app.use(express.json());
+// app.all("*", handle404s);
+
+// app.use(handlePsqlErrors);
+// app.use(handleServerErrors);
+// app.use(handleCustomErrors);
 
 module.exports = app;
