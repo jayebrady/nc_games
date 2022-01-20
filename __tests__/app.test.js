@@ -34,6 +34,7 @@ describe("GET /api/categories", () => {
           expect(review).toEqual(
             expect.objectContaining({
               title: expect.any(String),
+              comment_count: expect.any(String),
               review_body: expect.any(String),
               designer: expect.any(String),
               review_img_url: expect.any(String),
@@ -42,7 +43,6 @@ describe("GET /api/categories", () => {
               owner: expect.any(String),
               votes: expect.any(Number),
               review_id: expect.any(Number),
-              //comment_count: expect.any(Number)
             })
           );
         });
