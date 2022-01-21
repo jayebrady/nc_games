@@ -25,7 +25,7 @@ describe("GET /api/categories", () => {
       });
   });
   describe("GET /api/reviews/:review", () => {
-    test.only("status:200, responds with a single review object", () => {
+    test("status:200, responds with a single review object", () => {
       return request(app)
         .get("/api/reviews/1")
         .expect(200)
@@ -49,13 +49,21 @@ describe("GET /api/categories", () => {
     });
   });
 });
-describe("GET /api/reviews/:review_id", () => {
+describe("Errors /api/reviews/:review_id", () => {
   test("status:400, returns with an error message", () => {
     return request(app)
       .get(`/api/reviews/invalid_id`)
       .expect(400)
       .then((res) => {
-        expect(res.body.msg).toBe("Bad Request.");
+        expect(res.body.msg).toBe("Bad request");
+      });
+  });
+  test("status:404, returns with an error message", () => {
+    return request(app)
+      .get(`/api/reviews/99999`)
+      .expect(404)
+      .then((res) => {
+        expect(res.body.msg).toBe("Not found");
       });
   });
 });

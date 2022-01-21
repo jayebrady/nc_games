@@ -20,11 +20,3 @@ exports.getReviewsById = (review_id) => {
       return rows[0];
     });
 };
-
-// exports.getReviewsById = (review_id) => {
-//   return db
-//     .query("SELECT * FROM reviews WHERE review_id = $1;", [review_id])
-//     .then(({ rows }) => {
-//       return rows[0];
-//     });
-// };
