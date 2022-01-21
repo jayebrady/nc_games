@@ -24,29 +24,29 @@ describe("GET /api/categories", () => {
         });
       });
   });
-  describe("GET /api/reviews/:review", () => {
-    test("status:200, responds with a single review object", () => {
-      return request(app)
-        .get("/api/reviews/1")
-        .expect(200)
-        .then((res) => {
-          const review = res.body.reviews;
-          expect(review).toEqual(
-            expect.objectContaining({
-              title: expect.any(String),
-              comment_count: expect.any(String),
-              review_body: expect.any(String),
-              designer: expect.any(String),
-              review_img_url: expect.any(String),
-              category: expect.any(String),
-              created_at: expect.any(String),
-              owner: expect.any(String),
-              votes: expect.any(Number),
-              review_id: expect.any(Number),
-            })
-          );
-        });
-    });
+});
+describe("GET /api/reviews/:review", () => {
+  test("status:200, responds with a single review object", () => {
+    return request(app)
+      .get("/api/reviews/1")
+      .expect(200)
+      .then((res) => {
+        const review = res.body.reviews;
+        expect(review).toEqual(
+          expect.objectContaining({
+            title: expect.any(String),
+            comment_count: expect.any(String),
+            review_body: expect.any(String),
+            designer: expect.any(String),
+            review_img_url: expect.any(String),
+            category: expect.any(String),
+            created_at: expect.any(String),
+            owner: expect.any(String),
+            votes: expect.any(Number),
+            review_id: expect.any(Number),
+          })
+        );
+      });
   });
 });
 describe("Errors /api/reviews/:review_id", () => {
@@ -66,4 +66,7 @@ describe("Errors /api/reviews/:review_id", () => {
         expect(res.body.msg).toBe("Not found");
       });
   });
+});
+describe("PATCH /api/reviews", () => {
+  test("status:200, responds with a updated review object", () => {});
 });
